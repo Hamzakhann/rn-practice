@@ -1,10 +1,10 @@
 import React , {Component} from 'react';
-import {StyleSheet, View ,Text, TextInput , Button }  from 'react-native';
+import {StyleSheet,ScrollView, View ,Text, TextInput , Button }  from 'react-native';
 
 class Input extends Component{
     state = {
         myInput :"",
-        users : ['hamza' , 'sir nasir' , 'hunain' , 'Kashif']
+        users : ['areeba' , 'mohsin' , 'jack', 'mick', 'hosely' ,'hamza' , 'sir nasir' , 'hunain' , 'Kashif']
     }
 
     onChangeInput = (value)=>{
@@ -23,7 +23,7 @@ class Input extends Component{
     }
     render(){
         return(
-            <View style={styles.inputWrapper} >
+                <View style={styles.inputWrapper} >
                 <TextInput
             onChangeText = {this.onChangeInput}
             style = {styles.input}
@@ -37,13 +37,14 @@ class Input extends Component{
             title="Add Users"
             onPress = {this.onAddUser}
              />
-             {
+                         {
                  this.state.users.map((user) => (
                     <Text style={styles.users} key={user} >{user}</Text>
                  ))
              }
-            </View>
             
+            
+            </View>
         )
     }
 }

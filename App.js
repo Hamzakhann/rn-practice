@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, ScrollView, View, ActivityIndicator} from 'react-native';
 import Nav from './src/nav/nav';
 import Generate from './src/generator/generate';
 import ListItem from'./src/generator/listItem';
 import Input from './src/input/Input';
+import PickerComponent from './src/picker/Picker';
 
 // const instructions = Platform.select({
 //   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -16,7 +17,8 @@ import Input from './src/input/Input';
 export default class App extends Component{
   state={
     nameOfApp : "My awesome Apsp",
-    random : [20 , 13]
+    random : [20 , 13],
+    loading:false
   }
 
 onAddRandom = () =>{
@@ -40,9 +42,24 @@ onItemDelete = (i) => {
     return (
       <View style={styles.container}>
       <Nav nameOfApp = {this.state.nameOfApp} />
-      <Generate  add = {this.onAddRandom} /> 
+      <ScrollView 
+      // onContentSizeChange={(w,h) => alert(h)}
+      // onMomentumScrollBegin = {() => alert('begin')}
+      // onMomentumScrollEnd = {() => alert('end')}
+      // onScroll={() => alert('scroll')}
+      style={{width:'100%'}}>
+     <View style={styles.wrapper} >
+     <Generate  add = {this.onAddRandom} /> 
       <ListItem items={this.state.random} delete = {this.onItemDelete} />
-      <Input/>
+      {/* <Input/> */}
+      <PickerComponent/>
+      <ActivityIndicator
+      size="large"
+      color="red"
+      animating={this.state.loading}
+      />
+     </View>
+      </ScrollView>
       </View>
     );
   }
@@ -55,5 +72,12 @@ const styles = StyleSheet.create({
     justifyContent:'flex-start',
     backgroundColor: 'white',
     marginTop: 10,
+  },
+  wrapper:{
+    flex:1,
+    width:'100%',
+    padding: 20,
+    alignItems:'center',
+    justifyContent:'flex-start'
   }
 });
