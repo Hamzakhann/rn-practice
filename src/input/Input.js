@@ -1,14 +1,24 @@
 import React , {Component} from 'react';
-import {StyleSheet, Text, View , TouchableWithoutFeedback, TextInput }  from 'react-native';
+import {StyleSheet, View ,Text, TextInput , Button }  from 'react-native';
 
 class Input extends Component{
     state = {
-        myInput :""
+        myInput :"",
+        users : ['hamza' , 'sir nasir' , 'hunain' , 'Kashif']
     }
 
     onChangeInput = (value)=>{
         this.setState({
-            myInput:value
+            myInput:value,
+        })
+    }
+
+    onAddUser = () =>{
+        this.setState(previousState => {
+            return{
+                myInput:'',
+                users:[...previousState.users, previousState.myInput]
+            }
         })
     }
     render(){
@@ -23,6 +33,15 @@ class Input extends Component{
             editable={true}
             autoCapitalize={"words"}
             />
+            <Button
+            title="Add Users"
+            onPress = {this.onAddUser}
+             />
+             {
+                 this.state.users.map((user) => (
+                    <Text style={styles.users} key={user} >{user}</Text>
+                 ))
+             }
             </View>
             
         )
@@ -39,6 +58,13 @@ const styles = StyleSheet.create({
         marginTop:20,
         fontSize:20,
         padding: 10
+    },
+    users:{
+        fontSize:25,
+        borderWidth: 1,
+        borderColor: '#cecece',
+        padding:10,
+        marginBottom:20
     }
 })
 
