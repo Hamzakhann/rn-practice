@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, ScrollView, View, ActivityIndicator} from 'react-native';
+import {Platform, StyleSheet, ScrollView, View, ActivityIndicator , Image} from 'react-native';
 import Nav from './src/nav/nav';
 import Generate from './src/generator/generate';
 import ListItem from'./src/generator/listItem';
 import Input from './src/input/Input';
 import PickerComponent from './src/picker/Picker';
-
+import Mountain from './src/assets/images/mountain.jpeg';
+import ModalComponent from './src/model/Modal'
 // const instructions = Platform.select({
 //   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
 //   android:
@@ -18,10 +19,10 @@ export default class App extends Component{
   state={
     nameOfApp : "My awesome Apsp",
     random : [20 , 13],
-    loading:false
+    loading:true
   }
 
-onAddRandom = () =>{
+  onAddRandom = () =>{
   const random = Math.floor(Math.random()*100 + 1);
   this.setState(previousState =>{
     return  {
@@ -30,7 +31,7 @@ onAddRandom = () =>{
   })
 }
 
-onItemDelete = (i) => {
+    onItemDelete = (i) => {
   const newArray = this.state.random.filter((item , index) =>{
     return i !== index
   });
@@ -52,12 +53,20 @@ onItemDelete = (i) => {
      <Generate  add = {this.onAddRandom} /> 
       <ListItem items={this.state.random} delete = {this.onItemDelete} />
       {/* <Input/> */}
-      <PickerComponent/>
+      {/* <PickerComponent/>
       <ActivityIndicator
       size="large"
       color="red"
       animating={this.state.loading}
-      />
+      /> */}
+      {/* <Image
+      source={Mountain}
+      // source={{uri:'https://www.google.com/hamza/khann'}}
+      style={styles.mountains}
+      resizeMode="contain"
+      onLoadEnd={() => alert("image loding")}
+      /> */}
+      <ModalComponent/>
      </View>
       </ScrollView>
       </View>
@@ -79,5 +88,10 @@ const styles = StyleSheet.create({
     padding: 20,
     alignItems:'center',
     justifyContent:'flex-start'
+  },
+  mountains:{
+    width:'100%',
+    height:300,
+    marginTop:20
   }
 });
